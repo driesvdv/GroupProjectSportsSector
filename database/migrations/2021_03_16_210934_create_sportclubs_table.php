@@ -15,6 +15,8 @@ class CreateSportclubsTable extends Migration
     {
         Schema::create('sportclubs', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->foreignId('sports_id')->constrained();
             $table->timestamps();
         });
     }

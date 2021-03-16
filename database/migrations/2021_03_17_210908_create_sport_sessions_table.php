@@ -15,6 +15,9 @@ class CreateSportSessionsTable extends Migration
     {
         Schema::create('sport_sessions', function (Blueprint $table) {
             $table->id();
+            $table->datetime('start_time');
+            $table->datetime('end_time');
+            $table->foreignId('groups_id')->constrained();
             $table->timestamps();
         });
     }

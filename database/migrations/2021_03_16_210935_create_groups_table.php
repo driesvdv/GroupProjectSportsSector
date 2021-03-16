@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAbscentSessionsTable extends Migration
+class CreateGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,13 @@ class CreateAbscentSessionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('abscent_sessions', function (Blueprint $table) {
+        Schema::create('groups', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->time('time');
+            $table->integer('level');
+            $table->integer('max_members');
+            $table->foreignId('sportclubs_id')->constrained();
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ class CreateAbscentSessionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('abscent_sessions');
+        Schema::dropIfExists('groups');
     }
 }
