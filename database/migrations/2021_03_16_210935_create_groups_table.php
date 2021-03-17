@@ -17,9 +17,8 @@ class CreateGroupsTable extends Migration
             $table->id();
             $table->string('name');
             $table->time('time');
-            $table->integer('level');
             $table->integer('max_members');
-            $table->foreignId('sportclubs_id')->constrained();
+            $table->foreignId('sportclub_id')->constrained();
             $table->timestamps();
         });
     }

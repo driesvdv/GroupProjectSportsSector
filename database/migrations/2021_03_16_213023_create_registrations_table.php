@@ -15,8 +15,8 @@ class CreateRegistrationsTable extends Migration
     {
         Schema::create('registrations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('registrants_id')->constrained();
-            $table->foreignId('groups_id')->constrained();
+            $table->foreignId('registrant_id')->constrained();
+            $table->foreignId('group_id')->constrained();
             $table->timestamp('has_paid')->nullable();
             $table->timestamps();
         });
