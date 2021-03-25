@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use mysql_xdevapi\Exception;
@@ -20,7 +21,7 @@ class UserController extends Controller
     }
     public function store(Request $request){
         try {
-            $user = Auth::user();
+            $user = new User();
             $data = request()->validate([
                 'name' => 'required',
                 'email' => 'required',
