@@ -24,6 +24,19 @@ class RegistrationController extends Controller
         }
     }
 
+    public function index($registrant_id){
+        try {
+            $registrations = Registration::where([
+                ['registrant_id', '=', $registrant_id]
+            ])->get();
+
+            return response()->json([$registrations], 200);
+        }catch (Exception $e){
+            return response()->json(['message' => $e->getMessage()], 400);
+        }
+    }
+
+
     public function store(Request $request, $registrant_id){
         try {
             $registration = new Registration();

@@ -18,16 +18,33 @@ class SportclubController extends Controller
         }
     }
 
+    public function index(){
+        try {
+            return Sportclub::all();
+        }catch (Exception $exception){
+            return response()->json(['message' => $exception->getMessage()], 400);
+        }
+    }
+
     public function update(Request $request, $sportclub_name){
         try {
             $user = Auth::user();
             $sportclub = Sportclub::where('name', $sportclub_name)->first();
 
-            if ($this->isAdmin($sportclub, $user)){
-                $sportclub = $request->all();
-                return $sportclub;
+            if (!$this->isAdmin($sportclub, $user)){
+                return response()->json(['message' => 'Permission denied'], 403);
             }
-            return response()->json(['message' => 'Permission denied'], 403);
+
+            $data = request()->validate([
+                'name' => 'required',
+                'sport_id' => 'required'
+            ]);
+
+            $sportclub->name = $data['name'];
+            $sportclub->sport_id = $data['sport_id'];
+
+            $sportclub->save();
+            return response()->json($sportclub, 403);
 
         }catch (Exception $exception){
             return response()->json(['message' => $exception->getMessage()], 400);

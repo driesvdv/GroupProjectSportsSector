@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Registrant;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,6 +19,19 @@ class RegistrantController extends Controller
             ])->first();
 
             return response()->json([$registrant], 200);
+        }catch (Exception $e){
+            return response()->json(['message' => $e->getMessage()], 400);
+        }
+    }
+
+    public function index(){
+        try {
+            $user = Auth::user();
+            $registrants = Registrant::where([
+                ['user_id', '=', $user->id]
+            ])->get();
+
+            return response()->json([$registrants], 200);
         }catch (Exception $e){
             return response()->json(['message' => $e->getMessage()], 400);
         }
