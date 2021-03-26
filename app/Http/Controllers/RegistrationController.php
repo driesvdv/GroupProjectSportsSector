@@ -4,21 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Registrant;
+use App\Models\Registration;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class RegistrationController extends Controller
 {
-    public function index($registrant_id){
+    public function index($registrant_id, $registration_id){
         try {
-            $user = Auth::user();
-            $registrant = Registrant::where([
-                ['id', '=', $registrant_id],
-                ['user_id', '=', $user->id]
+            $registration = Registration::where([
+                ['id', '=', $registration_id],
+                ['registrant_id', '=', $registrant_id]
             ])->first();
 
-            return response()->json([$registrant], 200);
+            return response()->json([$registration], 200);
         }catch (Exception $e){
             return response()->json(['message' => $e->getMessage()], 400);
         }
@@ -26,8 +26,7 @@ class RegistrationController extends Controller
 
     public function store(Request $request, $registrant_id){
         try {
-            $user = Auth::user();
-            $registrant = new Registrant();
+            $registration = new Registration();
 
             $data = request()->validate([
                 'group_id' => 'required',
@@ -35,11 +34,12 @@ class RegistrationController extends Controller
                 'has_paid' => 'required',
             ]);
 
-            $registrant->group_id = $data['group_id'];
-            $registrant->registrant_id = $data['registrant_id'];
-            $registrant->has_paid = $data['has_paid'];
+            $registration->group_id = $data['group_id'];
+            $registration->registrant_id = $data['registrant_id'];
+            $registration->has_paid = $data['has_paid'];
 
-            return response()->json([$registrant], 200);
+            $registration->save();
+            return response()->json([$registration], 200);
         }catch (Exception $e){
             return response()->json(['message' => $e->getMessage()], 400);
         }
@@ -47,10 +47,9 @@ class RegistrationController extends Controller
 
     public function update($registrant_id){
         try {
-            $user = Auth::user();
-            $registrant = Registrant::where([
+            $registration = Registrant::where([
                 ['id', '=', $registrant_id],
-                ['user_id', '=', $user->id]
+                ['registran_id', '=', $registrant_id]
             ])->first();
 
             $data = request()->validate([
@@ -59,11 +58,12 @@ class RegistrationController extends Controller
                 'has_paid' => 'required',
             ]);
 
-            $registrant->group_id = $data['group_id'];
-            $registrant->registrant_id = $data['registrant_id'];
-            $registrant->has_paid = $data['has_paid'];
+            $registration->group_id = $data['group_id'];
+            $registration->registrant_id = $data['registrant_id'];
+            $registration->has_paid = $data['has_paid'];
 
-            return response()->json([$registrant], 200);
+            $registration->save();
+            return response()->json([$registration], 200);
         }catch (Exception $e){
             return response()->json(['message' => $e->getMessage()], 400);
         }
