@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class RegistrantController extends Controller
 {
-    public function index($registrant_id){
+    public function show($registrant_id){
         try {
             $user = Auth::user();
             $registrant = Registrant::where([

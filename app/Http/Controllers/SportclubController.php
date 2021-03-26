@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class SportclubController extends Controller
 {
-    public function index($sportclub_name){
+    public function show($sportclub_name){
         try {
             return Sportclub::where('name', $sportclub_name)->first();
         }catch (Exception $exception){

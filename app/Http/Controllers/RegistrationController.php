@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class RegistrationController extends Controller
 {
-    public function index($registrant_id, $registration_id){
+    public function show($registrant_id, $registration_id){
         try {
             $registration = Registration::where([
                 ['id', '=', $registration_id],

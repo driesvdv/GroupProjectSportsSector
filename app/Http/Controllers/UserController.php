@@ -11,7 +11,7 @@ use function PHPUnit\Framework\isNan;
 
 class UserController extends Controller
 {
-    public function index(){
+    public function show(){
         try {
             $user = Auth::user();
             return response()->json([$user], 200);

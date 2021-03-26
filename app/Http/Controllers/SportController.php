@@ -10,7 +10,7 @@ use function PHPUnit\Framework\isNan;
 
 class SportController extends Controller
 {
-    public function index(){
+    public function show(){
         try {
             $sports = Sport::all();
             return response()->json($sports, 200);

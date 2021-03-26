@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class SportSessionController extends Controller
 {
-    public function index($session_id){
+    public function show($session_id){
         try {
             $sport_session = Registrant::where([
                 ['id', '=', $session_id]

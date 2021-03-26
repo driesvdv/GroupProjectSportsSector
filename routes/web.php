@@ -24,30 +24,36 @@ Route::get('/', function () {
 });
 
 //sportclub
-Route::get('/{sportclub_name}', [SportclubController::class, 'index']);
+Route::get('/{sportclub_name}', [SportclubController::class, 'show']);
 Route::put('/{sportclub_name}', [SportclubController::class, 'update']);
 
 //user
-Route::get('/user', [UserController::class, 'index']);
+Route::get('/user', [UserController::class, 'show']);
 Route::post('/user', [UserController::class, 'store']);
 Route::put('/user', [UserController::class, 'update']);
 
 //registrants
-Route::get('/registrants/{registrant_id}', [RegistrantController::class, 'index']);
+Route::get('/registrants/{registrant_id}', [RegistrantController::class, 'show']);
 Route::post('/registrants', [RegistrantController::class, 'store']);
 Route::put('/registrants/{registrant_id}', [RegistrantController::class, 'update']);
 
 //registrations
-Route::get('/registrants/{registrant_id}/registrations/{registration_id}', [RegistrationController::class, 'index']);
+Route::get('/registrants/{registrant_id}/registrations/{registration_id}', [RegistrationController::class, 'show']);
 Route::post('/registrants/{registrant_id}/registrations', [RegistrationController::class, 'store']);
 Route::put('/registrants/{registrant_id}/registrations', [RegistrationController::class, 'update']);
 
 //groups
-Route::get('/groups/{group_name}', [GroupController::class, 'index']);
+Route::get('/groups/{group_name}', [GroupController::class, 'show']);
 Route::post('/groups', [GroupController::class, 'store']);
 Route::put('/groups/{group_name}', [GroupController::class, 'update']);
 
 //sportsessions
-Route::get('/sportsession/{session_id}', [SportSessionController::class, 'index']);
+Route::get('/sportsession/{session_id}', [SportSessionController::class, 'show']);
 Route::post('/sportsessions', [SportSessionController::class, 'store']);
 Route::put('/sportsessions/{session_id}', [SportSessionController::class, 'update']);
+
+//absentsessions
+Route::get('/sportsessions/{session_id}/absentsessions', [SportSessionController::class, 'index']);
+Route::get('/sportsessions/{session_id}/absentsessions/{absent_id}', [SportSessionController::class, 'show']);
+Route::post('/sportsessions/{session_id}/absentsessions', [SportSessionController::class, 'store']);
+Route::put('/sportsessions/{session_id}/absentsessions/{absent_id}', [SportSessionController::class, 'update']);

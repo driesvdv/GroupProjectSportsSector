@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
 {
-    public function index($group_name){
+    public function show($group_name){
         try {
             $group = Registrant::where([
                 ['name', '=', $group_name]
