@@ -45,7 +45,7 @@ class RegistrationController extends Controller
         }
     }
 
-    public function update($registrant_id){
+    public function update(Request $request, $registrant_id){
         try {
             $registration = Registrant::where([
                 ['id', '=', $registrant_id],
