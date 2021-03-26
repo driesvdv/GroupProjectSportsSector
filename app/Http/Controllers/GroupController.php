@@ -12,7 +12,7 @@ class GroupController extends Controller
 {
     public function show($group_name){
         try {
-            $group = Registrant::where([
+            $group = Group::where([
                 ['name', '=', $group_name]
             ])->first();
 
@@ -22,6 +22,15 @@ class GroupController extends Controller
         }
     }
 
+    public function index(){
+        try {
+            $groups = Registrant::all();
+
+            return response()->json([$groups], 200);
+        }catch (Exception $e){
+            return response()->json(['message' => $e->getMessage()], 400);
+        }
+    }
     public function store(Request $request){
         try {
             $group = new Group();
@@ -48,7 +57,7 @@ class GroupController extends Controller
 
     public function update(Request $request, $group_name){
         try {
-            $group = Registrant::where([
+            $group = Group::where([
                 ['name', '=', $group_name]
             ])->first();
 
