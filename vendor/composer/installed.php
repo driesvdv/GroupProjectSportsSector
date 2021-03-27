@@ -1,12 +1,12 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => 'v8.5.14',
-    'version' => '8.5.14.0',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => 'a53dfb30cf9def9fe65ed7ab645cca560b90cd1b',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -422,6 +422,15 @@
         0 => 'v8.33.1',
       ),
     ),
+    'inertiajs/inertia-laravel' => 
+    array (
+      'pretty_version' => 'v0.4.0',
+      'version' => '0.4.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '097fe5b3be73ab8edea1a5216a696f627c1f6b03',
+    ),
     'kodova/hamcrest-php' => 
     array (
       'replaced' => 
@@ -440,12 +449,12 @@
     ),
     'laravel/laravel' => 
     array (
-      'pretty_version' => 'v8.5.14',
-      'version' => '8.5.14.0',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => 'a53dfb30cf9def9fe65ed7ab645cca560b90cd1b',
     ),
     'laravel/sail' => 
     array (
@@ -760,8 +769,8 @@
     array (
       'provided' => 
       array (
-        0 => '1.0',
-        1 => '1.0.0',
+        0 => '1.0.0',
+        1 => '1.0',
       ),
     ),
     'psr/simple-cache' => 
