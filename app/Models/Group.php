@@ -14,4 +14,16 @@ class Group extends Model
         'time',
         'max_members',
     ];
+
+    public function registrations(){
+        $this->hasMany(Registration::class);
+    }
+
+    public function sportclub(){
+        $this->belongsTo(Sportclub::class);
+    }
+
+    public function sportSessions(){
+        $this->hasMany(SportSession::class);
+    }
 }

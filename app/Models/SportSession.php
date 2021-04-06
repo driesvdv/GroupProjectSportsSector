@@ -13,4 +13,12 @@ class SportSession extends Model
         'start_time',
         'end_time'
     ];
+
+    public function group(){
+        $this->belongsTo(Group::class);
+    }
+
+    public function absentSessions(){
+        $this->hasMany(AbsentSession::class);
+    }
 }

@@ -12,4 +12,16 @@ class Sportclub extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function admins(){
+        $this->hasMany(User::class);
+    }
+
+    public function sport(){
+        $this->belongsTo(Sport::class);
+    }
+
+    public function groups(){
+        $this->hasMany(Group::class);
+    }
 }

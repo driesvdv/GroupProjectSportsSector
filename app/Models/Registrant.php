@@ -15,4 +15,12 @@ class Registrant extends Model
         'birth_date',
         'max_registrations'
     ];
+
+    public function user(){
+        $this->belongsTo(User::class);
+    }
+
+    public function registrations(){
+        $this->hasMany(Registration::class);
+    }
 }
