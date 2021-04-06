@@ -60,9 +60,9 @@ class RegistrationController extends Controller
 
     public function update(Request $request, $registrant_id){
         try {
-            $registration = Registrant::where([
+            $registration = Registration::where([
                 ['id', '=', $registrant_id],
-                ['registran_id', '=', $registrant_id]
+                ['registrant_id', '=', $registrant_id]
             ])->first();
 
             $data = request()->validate([

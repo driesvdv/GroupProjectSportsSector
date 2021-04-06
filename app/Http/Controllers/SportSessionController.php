@@ -13,7 +13,7 @@ class SportSessionController extends Controller
 {
     public function show($session_id){
         try {
-            $sport_session = Registrant::where([
+            $sport_session = SportSession::where([
                 ['id', '=', $session_id]
             ])->first();
 

@@ -24,7 +24,7 @@ class GroupController extends Controller
 
     public function index(){
         try {
-            $groups = Registrant::all();
+            $groups = Group::all();
 
             return response()->json([$groups], 200);
         }catch (Exception $e){

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Registrant;
+use App\Models\AbsentSession;
 use App\Models\SportSession;
 use Illuminate\Http\Request;
 
@@ -11,7 +11,7 @@ class AbsentSessionController extends Controller
 {
     public function show($session_id, $absent_id){
         try {
-            $absent_session = Registrant::where([
+            $absent_session = AbsentSession::where([
                 ['sport_session_id', '=', $absent_id],
                 ['id', '=', $session_id]
             ])->first();
@@ -24,7 +24,7 @@ class AbsentSessionController extends Controller
 
     public function store(Request $request){
         try {
-            $absent_session = new SportSession();
+            $absent_session = new AbsentSession();
 
             $data = request()->validate([
                 'sport_session_id' => 'required',
@@ -44,7 +44,7 @@ class AbsentSessionController extends Controller
 
     public function update(Request $request, $session_id){
         try {
-            $absent_session = SportSession::where([
+            $absent_session = AbsentSession::where([
                 ['id', '=', $session_id]
             ])->first();
 
