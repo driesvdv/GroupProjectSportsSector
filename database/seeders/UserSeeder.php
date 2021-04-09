@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
             User::create([
                 'name' => $name,
                 'email' => $name . '@odisee.be',
+                'email_verified_at' => now(),
                 'password' => bcrypt($name),
                 'sportclub_id' => $key + 1,
             ]);
