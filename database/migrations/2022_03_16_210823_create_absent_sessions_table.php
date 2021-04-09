@@ -16,6 +16,7 @@ class CreateAbsentSessionsTable extends Migration
         Schema::create('absent_sessions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('registration_id')->constrained();
+            $table->foreignId('sport_session_id')->constrained();
             $table->timestamps();
         });
     }

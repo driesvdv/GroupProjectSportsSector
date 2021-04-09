@@ -18,7 +18,6 @@ class CreateSportSessionsTable extends Migration
             $table->datetime('start_time');
             $table->datetime('end_time');
             $table->foreignId('group_id')->constrained();
-            $table->foreignId('absent_session_id')->constrained();
             $table->timestamps();
         });
     }
