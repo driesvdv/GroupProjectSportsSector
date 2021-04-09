@@ -17,11 +17,11 @@ class UserController extends Controller
     public function show(){
         return new UserResource(Auth::user());
     }
+
     public function store(Request $request){
         $user = $this->ValidateUser($request, new User());
 
         return new UserResource($user);
-
     }
 
     public function update(Request $request){
@@ -30,7 +30,7 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    private function ValidateUser(Request $request, User $user)
+    private function ValidateUser(Request $request, $user)
     {
         $data = $request->validate([
             'name' => 'required',
