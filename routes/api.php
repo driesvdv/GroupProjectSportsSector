@@ -31,7 +31,7 @@ Route::get('/sportclubs', [SportclubController::class, 'index']);
 Route::put('/{sportclub_name}', [SportclubController::class, 'update']);
 
 //user
-Route::get('/user', [UserController::class, 'show'])->middleware('auth');
+Route::get('/user', [UserController::class, 'show']);
 Route::post('/user', [UserController::class, 'store'])->middleware('auth');
 Route::put('/user', [UserController::class, 'update'])->middleware('auth');
 
