@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RegistrantResource;
 use App\Models\Registrant;
 use Exception;
 use Illuminate\Http\Request;
@@ -11,81 +12,57 @@ use Illuminate\Support\Facades\Auth;
 class RegistrantController extends Controller
 {
     public function show($registrant_id){
-        try {
-            $user = Auth::user();
-            $registrant = Registrant::where([
-                ['id', '=', $registrant_id],
-                ['user_id', '=', $user->id]
-            ])->first();
+        $user = Auth::user();
+        $registrant = Registrant::where([
+            ['id', '=', $registrant_id],
+            ['user_id', '=', $user->id]
+        ])->firstOrFail();
 
-            return response()->json([$registrant], 200);
-        }catch (Exception $e){
-            return response()->json(['message' => $e->getMessage()], 400);
-        }
+        return new RegistrantResource($registrant);
     }
 
     public function index(){
-        try {
-            $user = Auth::user();
-            $registrants = Registrant::where([
-                ['user_id', '=', $user->id]
-            ])->get();
+        $user = Auth::user();
+        $registrants = Registrant::where([
+            ['user_id', '=', $user->id]
+        ])->get();
 
-            return response()->json([$registrants], 200);
-        }catch (Exception $e){
-            return response()->json(['message' => $e->getMessage()], 400);
-        }
+        return RegistrantResource::collection($registrants);
     }
 
     public function store(Request $request){
-        try {
-            $registrant = new Registrant();
+        $registrant = $this->ValidateRegistrant(new Registrant(), $request);
 
-            $data = request()->validate([
-                'first_name' => 'required',
-                'last_name' => 'required',
-                'birth_date' => 'required',
-                'max_registrations' => 'required'
-            ]);
-
-            $registrant->first_name = $data['first_name'];
-            $registrant->last_name = $data['last_name'];
-            $registrant->birth_date = $data['birth_date'];
-            $registrant->max_registrations = $data['max_registrations'];
-
-            $registrant->save();
-
-            return response()->json([$registrant], 200);
-        }catch (Exception $e){
-            return response()->json(['message' => $e->getMessage()], 400);
-        }
+        return new RegistrantResource($registrant);
     }
 
     public function update(Request $request, $registrant_id){
-        try {
-            $user = Auth::user();
-            $registrant = Registrant::where([
-                ['id', '=', $registrant_id],
-                ['user_id', '=', $user->id]
-            ])->first();
+        $user = Auth::user();
+        $registrant = Registrant::where([
+            ['id', '=', $registrant_id],
+            ['user_id', '=', $user->id]
+        ])->firstOrFail();
 
-            $data = request()->validate([
-                'first_name' => 'required',
-                'last_name' => 'required',
-                'birth_date' => 'required',
-                'max_registrations' => 'required'
-            ]);
+        $registrant = $this->ValidateRegistrant($registrant, $request);
 
-            $registrant->first_name = $data['first_name'];
-            $registrant->last_name = $data['last_name'];
-            $registrant->birth_date = $data['birth_date'];
-            $registrant->max_registrations = $data['max_registrations'];
+        return new RegistrantResource($registrant);
+    }
 
-            $registrant->save();
+    private function ValidateRegistrant(Registrant $registrant, Request $request){
+        $data = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'birth_date' => 'required',
+            'max_registrations' => 'required'
+        ]);
 
-            return response()->json([$registrant], 200);
-        }catch (Exception $e){
-            return response()->json(['message' => $e->getMessage()], 400);
-        }
+        $registrant->first_name = $data['first_name'];
+        $registrant->last_name = $data['last_name'];
+        $registrant->birth_date = $data['birth_date'];
+        $registrant->max_registrations = $data['max_registrations'];
+
+        $registrant->save();
+
+        return $registrant;
     }
 }
