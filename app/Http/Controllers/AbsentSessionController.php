@@ -3,64 +3,52 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AbsentSessionResource;
 use App\Models\AbsentSession;
 use App\Models\SportSession;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class AbsentSessionController extends Controller
 {
     public function show($session_id, $absent_id){
-        try {
-            $absent_session = AbsentSession::where([
-                ['sport_session_id', '=', $absent_id],
-                ['id', '=', $session_id]
-            ])->first();
+        $absent_session = AbsentSession::where([
+            ['sport_session_id', '=', $absent_id],
+            ['id', '=', $session_id]
+        ])->firstOrFail();
 
-            return response()->json([$absent_session], 200);
-        }catch (\Exception $e){
-            return response()->json(['message' => $e->getMessage()], 400);
-        }
+        return new AbsentSessionResource($absent_session);
+
     }
 
     public function store(Request $request){
-        try {
-            $absent_session = new AbsentSession();
+        $absent_session = $this->ValidateAbsentSession(new AbsentSession(), $request);
 
-            $data = request()->validate([
-                'sport_session_id' => 'required',
-                'registration_id' => 'required'
-            ]);
-
-            $absent_session->sport_session_id = $data['sport_session_id'];
-            $absent_session->registration_id = $data['registration_id'];
-
-            $absent_session->save();
-
-            return response()->json([$absent_session], 200);
-        }catch (\Exception $e){
-            return response()->json(['message' => $e->getMessage()], 400);
-        }
+        return new AbsentSessionResource($absent_session);
     }
 
     public function update(Request $request, $session_id){
-        try {
-            $absent_session = AbsentSession::where([
-                ['id', '=', $session_id]
-            ])->first();
+        $absent_session = AbsentSession::where([
+            ['id', '=', $session_id]
+        ])->firstOrFail();
 
-            $data = request()->validate([
-                'sport_session_id' => 'required',
-                'registration_id' => 'required'
-            ]);
+        $absent_session = $this->ValidateAbsentSession($absent_session, $request);
 
-            $absent_session->sport_session_id = $data['sport_session_id'];
-            $absent_session->registration_id = $data['registration_id'];
+        return new AbsentSessionResource($absent_session);
+    }
 
-            $absent_session->save();
+    private function ValidateAbsentSession(AbsentSession $absent_session, Request $request)
+    {
+        $data = $request->validate([
+            'sport_session_id' => 'required',
+            'registration_id' => 'required'
+        ]);
 
-            return response()->json([$absent_session], 200);
-        }catch (\Exception $e){
-            return response()->json(['message' => $e->getMessage()], 400);
-        }
+        $absent_session->sport_session_id = $data['sport_session_id'];
+        $absent_session->registration_id = $data['registration_id'];
+
+        $absent_session->save();
+
+        return $absent_session;
     }
 }
