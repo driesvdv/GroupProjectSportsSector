@@ -27,7 +27,7 @@ class RegistrantController extends Controller
             ['user_id', '=', $user->id]
         ])->get();
 
-        return RegistrantResource::collection($registrants);
+        return 'test';
     }
 
     public function store(Request $request){
