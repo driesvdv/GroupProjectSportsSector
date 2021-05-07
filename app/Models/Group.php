@@ -17,16 +17,16 @@ class Group extends Model
 
     public function registrations()
     {
-        $this->hasMany(Registration::class);
+        return $this->hasMany(Registration::class);
     }
 
     public function sportclub()
     {
-        $this->belongsTo(Sportclub::class);
+        return $this->belongsTo(Sportclub::class);
     }
 
     public function sportSessions()
     {
-        $this->hasMany(SportSession::class);
+        return $this->hasMany(SportSession::class);
     }
 }

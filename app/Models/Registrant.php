@@ -9,6 +9,8 @@ class Registrant extends Model
 {
     use HasFactory;
 
+    protected $table = 'registrants';
+
     protected $casts = [
         'birth_date' => 'datetime:Y-m-d',
     ];
@@ -20,11 +22,13 @@ class Registrant extends Model
         'max_registrations'
     ];
 
-    public function user(){
-        $this->belongsTo(User::class);
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
-    public function registrations(){
-        $this->hasMany(Registration::class);
+    public function registrations()
+    {
+        return $this->hasMany(Registration::class);
     }
 }

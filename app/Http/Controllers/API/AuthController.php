@@ -33,7 +33,8 @@ class AuthController extends Controller
             'password' => 'required|min:5'
         ]);
 
-        if (!auth()->attempt($loginData)) {
+        if (!auth()->attempt($loginData))
+        {
             return response(['message' => 'Invalid Credentials'], 403);
         }
 

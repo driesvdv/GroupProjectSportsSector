@@ -15,10 +15,10 @@ class SportSession extends Model
     ];
 
     public function group(){
-        $this->belongsTo(Group::class);
+        return $this->belongsTo(Group::class);
     }
 
     public function absentSessions(){
-        $this->hasMany(AbsentSession::class);
+        return $this->hasMany(AbsentSession::class);
     }
 }

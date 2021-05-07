@@ -9,15 +9,18 @@ class Registration extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
+
     public function registrant(){
-        $this->belongsTo(Registrant::class);
+        return $this->belongsTo(Registrant::class);
     }
 
     public function group(){
-        $this->belongsTo(Group::class);
+        return $this->belongsTo(Group::class);
     }
 
     public function absentSessions(){
-        $this->hasMany(AbsentSession::class);
+        return $this->hasMany(AbsentSession::class);
     }
 }

@@ -14,14 +14,14 @@ class Sportclub extends Model
     ];
 
     public function admins(){
-        $this->hasMany(User::class);
+        return $this->hasMany(User::class);
     }
 
     public function sport(){
-        $this->belongsTo(Sport::class);
+        return $this->belongsTo(Sport::class);
     }
 
     public function groups(){
-        $this->hasMany(Group::class);
+        return $this->hasMany(Group::class);
     }
 }

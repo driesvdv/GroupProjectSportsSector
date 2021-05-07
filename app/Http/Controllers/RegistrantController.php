@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRegistrantRequest;
 use App\Http\Resources\RegistrantResource;
 use App\Models\Registrant;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,10 +32,11 @@ class RegistrantController extends Controller
         return 'test';
     }
 
-    public function store(StoreRegistrantRequest $request)
+    public function store(Request $request)
     {
-        $user = Auth::user()->load('registrants');
-        dd($user);
+        return dump($request->user()->registrants);
+
+        return (auth()->user()->registrants);
 
         return 'test';
     }
