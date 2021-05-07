@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -42,11 +44,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function sportclub(){
+    /**
+     * Returns the sportclub this owner belongs to (only for admin purposes)
+     */
+    public function sportclub()
+    {
         $this->belongsTo(Sportclub::class);
     }
 
-    public function registrants(){
-        $this->hasMany(Registrant::class);
+    /**
+     * Returns all registrants
+     */
+    public function registrants()
+    {
+        $this->hasMany(Registrant::class, 'user_id', 'id');
     }
 }

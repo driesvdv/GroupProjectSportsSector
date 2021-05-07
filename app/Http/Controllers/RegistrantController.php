@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreRegistrantRequest;
 use App\Http\Resources\RegistrantResource;
 use App\Models\Registrant;
 use Exception;
@@ -30,10 +31,12 @@ class RegistrantController extends Controller
         return 'test';
     }
 
-    public function store(Request $request){
-        $registrant = $this->ValidateRegistrant(new Registrant(), $request);
+    public function store(StoreRegistrantRequest $request)
+    {
+        $user = Auth::user()->load('registrants');
+        dd($user);
 
-        return new RegistrantResource($registrant);
+        return 'test';
     }
 
     public function update(Request $request, $registrant_id){
@@ -56,6 +59,8 @@ class RegistrantController extends Controller
             'max_registrations' => 'required'
         ]);
 
+
+
         $registrant->first_name = $data['first_name'];
         $registrant->last_name = $data['last_name'];
         $registrant->birth_date = $data['birth_date'];
@@ -65,4 +70,5 @@ class RegistrantController extends Controller
 
         return $registrant;
     }
+
 }

@@ -9,6 +9,10 @@ class Registrant extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'birth_date' => 'datetime:Y-m-d',
+    ];
+
     protected $fillable = [
         'first_name',
         'last_name',
