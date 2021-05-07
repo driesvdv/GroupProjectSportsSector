@@ -2,75 +2,59 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRegistrantRequest;
 use App\Http\Resources\RegistrantResource;
+use App\Http\Resources\RegistrationResource;
 use App\Models\Registrant;
-use App\Models\User;
-use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 
 class RegistrantController extends Controller
 {
-    public function show($registrant_id){
-        $user = Auth::user();
-        $registrant = Registrant::where([
-            ['id', '=', $registrant_id],
-            ['user_id', '=', $user->id]
-        ])->firstOrFail();
-
-        return new RegistrantResource($registrant);
-    }
-
-    public function index(){
-        $user = Auth::user();
-        $registrants = Registrant::where([
-            ['user_id', '=', $user->id]
-        ])->get();
-
-        return 'test';
-    }
-
-    public function store(Request $request)
+    /**
+     * Return all registrants
+     *
+     * @return \App\Http\Resources\RegistrantResource
+     */
+    public function index(): RegistrantResource
     {
-        return dump($request->user()->registrants);
-
-        return (auth()->user()->registrants);
-
-        return 'test';
+        return new RegistrantResource(auth()->user()->registrants);
     }
 
-    public function update(Request $request, $registrant_id){
-        $user = Auth::user();
-        $registrant = Registrant::where([
-            ['id', '=', $registrant_id],
-            ['user_id', '=', $user->id]
-        ])->firstOrFail();
-
-        $registrant = $this->ValidateRegistrant($registrant, $request);
-
-        return new RegistrantResource($registrant);
+    /**
+     * shows the registrant
+     *
+     * @param $id
+     * @return \App\Http\Resources\RegistrantResource
+     */
+    public function show($id): RegistrantResource
+    {
+        return new RegistrantResource(auth()->user()->registrants()->find($id));
     }
 
-    private function ValidateRegistrant(Registrant $registrant, Request $request){
-        $data = $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'birth_date' => 'required',
-            'max_registrations' => 'required'
-        ]);
-
-
-
-        $registrant->first_name = $data['first_name'];
-        $registrant->last_name = $data['last_name'];
-        $registrant->birth_date = $data['birth_date'];
-        $registrant->max_registrations = $data['max_registrations'];
-
-        $registrant->save();
-
-        return $registrant;
+    /**
+     * updates the registration resource
+     *
+     * @param \App\Http\Requests\StoreRegistrantRequest $request The request body
+     * @param int $id The id of the registrant
+     * @return \App\Http\Resources\RegistrationResource The created registrant data
+     */
+    public function update(StoreRegistrantRequest $request, int $id): RegistrationResource
+    {
+        $registrant = auth()->user()->registrants()->find($id);
+        $registrant->fill($request->validated())->save();
+        return new RegistrationResource($registrant);
     }
 
+    /**
+     * stores a registrant
+     *
+     * @param \App\Http\Requests\StoreRegistrantRequest $request
+     * @return mixed
+     */
+    public function store(StoreRegistrantRequest $request)
+    {
+        return new RegistrationResource(auth()->user()->registrants()->create($request->validated()));
+    }
 }

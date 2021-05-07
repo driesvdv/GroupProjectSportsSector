@@ -30,9 +30,9 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 //sportclub
-Route::get('/{sportclub_name}', [SportclubController::class, 'show']);
-Route::get('/sportclubs', [SportclubController::class, 'index']);
-Route::put('/{sportclub_name}', [SportclubController::class, 'update']);
+Route::get('/club/{sportclub_name}', [SportclubController::class, 'show']);
+Route::get('/club/sportclubs', [SportclubController::class, 'index']);
+Route::put('/club/{sportclub_name}', [SportclubController::class, 'update']);
 
 //user
 Route::get('/user', [UserController::class, 'show']);
