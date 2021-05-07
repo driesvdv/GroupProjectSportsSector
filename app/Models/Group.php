@@ -15,15 +15,18 @@ class Group extends Model
         'max_members',
     ];
 
-    public function registrations(){
+    public function registrations()
+    {
         $this->hasMany(Registration::class);
     }
 
-    public function sportclub(){
+    public function sportclub()
+    {
         $this->belongsTo(Sportclub::class);
     }
 
-    public function sportSessions(){
+    public function sportSessions()
+    {
         $this->hasMany(SportSession::class);
     }
 }

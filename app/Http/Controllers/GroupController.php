@@ -2,34 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Resources\GroupResource;
 use App\Models\Group;
-use App\Models\Registrant;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
 {
-    public function show($group_name){
+    public function show($group_name)
+    {
         $group = Group::where([
             ['name', '=', $group_name]
-        ])->firstOrFail();
+        ])->withCount('registrations')
+            ->firstOrFail();
 
         return new GroupResource($group);
     }
 
-    public function index(){
+    public function index()
+    {
         return GroupResource::collection(Group::all());
     }
-    public function store(Request $request){
+
+    public function store(Request $request)
+    {
         $group = $this->ValidateGroup(new Group(), $request);
 
         return new GroupResource($group);
     }
 
-    public function update(Request $request, $group_name){
+    public function update(Request $request, $group_name)
+    {
         $group = Group::where([
             ['name', '=', $group_name]
         ])->firstOrFail();
