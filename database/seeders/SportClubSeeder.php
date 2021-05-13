@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Group;
 use App\Models\Sportclub;
+use App\Models\SportSession;
 use Illuminate\Database\Seeder;
 
 class SportClubSeeder extends Seeder
@@ -18,10 +20,16 @@ class SportClubSeeder extends Seeder
     {
         foreach ($this->names as $key => $name)
         {
-            Sportclub::create([
+            $sportClub = Sportclub::create([
                 'name' => $name,
                 'sport_id' => $key + 1
             ]);
+
+            Group::factory()
+                ->count(10)
+                ->for($sportClub)
+                ->has(SportSession::factory()->count(2))
+                ->create();
         }
     }
 }

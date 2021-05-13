@@ -2,18 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\group;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\registrant;
 
-class registrantFactory extends Factory
+class groupFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = registrant::class;
+    protected $model = group::class;
 
     /**
      * Define the model's default state.
@@ -23,10 +22,9 @@ class registrantFactory extends Factory
     public function definition()
     {
         return [
-            'first_name' => $this->faker->firstName,
-            'last_name' => $this->faker->lastName,
-            'birth_date' => $this->faker->date('Y-m-d'),
-            'max_registrations' => 1,
+            'name' => $this->faker->firstName,
+            'time' => $this->faker->dateTimeBetween('-2 years'),
+            'max_members' => 10,
         ];
     }
 }

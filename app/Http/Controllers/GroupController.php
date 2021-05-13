@@ -10,10 +10,11 @@ class GroupController extends Controller
 {
     public function show($group_name)
     {
-        $group = Group::where([
-            ['name', '=', $group_name]
-        ])->withCount('registrations')
-            ->firstOrFail();
+        $group = Group::where(['name', '=', $group_name]);
+//        $group = Group::where([
+//            ['name', '=', $group_name]
+//        ])->withCount('registrations')
+//            ->firstOrFail();
 
         return new GroupResource($group);
     }

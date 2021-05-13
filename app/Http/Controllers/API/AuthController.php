@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use function PHPUnit\Framework\returnArgument;
 
 class AuthController extends Controller
@@ -33,14 +34,14 @@ class AuthController extends Controller
             'password' => 'required|min:5'
         ]);
 
-        if (!auth()->attempt($loginData))
+        if (!Auth::attempt($loginData))
         {
             return response(['message' => 'Invalid Credentials'], 403);
         }
 
-        $accessToken = auth()->user()->createToken('authToken')->accessToken;
+        $accessToken = Auth::user()->createToken('authToken')->accessToken;
 
-        return response()->json(['user' => auth()->user(), 'access_token' => $accessToken]);
+        return response()->json(['user' => Auth::user(), 'access_token' => $accessToken]);
 
     }
 }

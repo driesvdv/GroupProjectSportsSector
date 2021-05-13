@@ -2,18 +2,19 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\Group;
+use App\Models\Registration;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\registrant;
 
-class registrantFactory extends Factory
+class RegistrationFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = registrant::class;
+    protected $model = Registration::class;
 
     /**
      * Define the model's default state.
@@ -23,10 +24,8 @@ class registrantFactory extends Factory
     public function definition()
     {
         return [
-            'first_name' => $this->faker->firstName,
-            'last_name' => $this->faker->lastName,
-            'birth_date' => $this->faker->date('Y-m-d'),
-            'max_registrations' => 1,
+            'group_id' => Group::inRandomOrder()->first()->id,
+            'has_paid' => Carbon::now(),
         ];
     }
 }
