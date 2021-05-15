@@ -51,6 +51,6 @@ class RegistrationAdded implements ShouldBroadcastNow
      */
     public function broadcastOn(): Channel
     {
-        return new Channel('groups.' . $this->group->id);
+        return new Channel('groups');
     }
 }
