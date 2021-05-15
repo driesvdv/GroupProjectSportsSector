@@ -48,10 +48,9 @@ class RegistrationController extends Controller
      */
     public function store(Request $request): RegistrationResource
     {
-        //dd($request);
         $registration = $this->ValidateRegistration($request, new Registration());
 
-        RegistrationAdded::dispatch($registration);
+        Broadcast(new RegistrationAdded($registration))->toOthers();
 
         return new RegistrationResource($registration);
     }
