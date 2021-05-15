@@ -48,6 +48,7 @@ class RegistrationController extends Controller
      */
     public function store(Request $request): RegistrationResource
     {
+        //dd($request);
         $registration = $this->ValidateRegistration($request, new Registration());
 
         RegistrationAdded::dispatch($registration);
@@ -71,12 +72,10 @@ class RegistrationController extends Controller
         $data = $request->validate([
             'group_id' => 'required',
             'registrant_id' => 'required',
-            'has_paid' => 'required',
         ]);
 
         $registration->group_id = $data['group_id'];
         $registration->registrant_id = $data['registrant_id'];
-        $registration->has_paid = $data['has_paid'];
 
         $registration->save();
 
