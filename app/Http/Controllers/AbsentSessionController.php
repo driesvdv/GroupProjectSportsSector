@@ -27,9 +27,10 @@ class AbsentSessionController extends Controller
         return new AbsentSessionResource($absent_session);
     }
 
-    public function update(Request $request, $session_id){
+    public function delete($sport_session_id, $registration_id){
         $absent_session = AbsentSession::where([
-            ['id', '=', $session_id]
+            ['registration_id', '=', $registration_id],
+            ['sport_session_id', '=', $sport_session_id]
         ])->firstOrFail();
 
         $absent_session = $this->ValidateAbsentSession($absent_session, $request);
