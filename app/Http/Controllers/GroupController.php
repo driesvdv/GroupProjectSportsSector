@@ -8,13 +8,11 @@ use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
-    public function show($group_name)
+    public function show($group_id)
     {
-        $group = Group::where(['name', '=', $group_name]);
-//        $group = Group::where([
-//            ['name', '=', $group_name]
-//        ])->withCount('registrations')
-//            ->firstOrFail();
+        $group = Group::where([
+            ['id', '=', $group_id]
+        ])->with('sportclub')->firstOrFail();
 
         return new GroupResource($group);
     }
