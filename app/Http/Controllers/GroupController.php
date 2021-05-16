@@ -4,19 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\GroupResource;
 use App\Models\Group;
+use App\Models\Sportclub;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
-    public function show($group_name)
+    public function show($club_id)
     {
-        $group = Group::where(['name', '=', $group_name]);
+        return Sportclub::find($club_id)->groups;
+
+        //$group = Group::where(['name', '=', $group_name]);
 //        $group = Group::where([
 //            ['name', '=', $group_name]
 //        ])->withCount('registrations')
 //            ->firstOrFail();
 
-        return new GroupResource($group);
+        //return new GroupResource($group);
     }
 
     public function index()

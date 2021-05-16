@@ -30,12 +30,12 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 //sportclub
-Route::get('/club/{sportclub_name}', [SportclubController::class, 'show']);
 Route::get('/club/sportclubs', [SportclubController::class, 'index']);
+Route::get('/club/{sportclub_name}', [SportclubController::class, 'show']);
 Route::put('/club/{sportclub_name}', [SportclubController::class, 'update']);
 
 //user
-Route::get('/user', [UserController::class, 'show']);
+Route::get('/user', [UserController::class, 'show'])->middleware('auth:api');
 Route::post('/user', [UserController::class, 'store'])->middleware('auth:api');
 Route::put('/user', [UserController::class, 'update'])->middleware('auth:api');
 
@@ -52,7 +52,7 @@ Route::post('/registrants/{registrant_id}/registrations', [RegistrationControlle
 Route::put('/registrants/{registrant_id}/registrations/{registration_id}', [RegistrationController::class, 'update'])->middleware('auth:api');
 
 //groups
-Route::get('/groups/{group_name}', [GroupController::class, 'show'])->middleware('auth:api');
+Route::get('/groups/{club_id}', [GroupController::class, 'show'])->middleware('auth:api');
 Route::get('/groups', [GroupController::class, 'index'])->middleware('auth:api');
 Route::post('/groups', [GroupController::class, 'store'])->middleware('auth:api');
 Route::put('/groups/{group_name}', [GroupController::class, 'update'])->middleware('auth:api');
