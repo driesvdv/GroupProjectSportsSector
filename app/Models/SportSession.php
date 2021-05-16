@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Database\Factories\sportSessionFactory;
+use Database\Factories\SportSessionFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,7 +27,7 @@ class SportSession extends Model
         return $this->hasMany(AbsentSession::class);
     }
 
-    public static function newFactory(): sportSessionFactory
+    public static function newFactory(): SportSessionFactory
     {
         return SportSessionFactory::new();
     }

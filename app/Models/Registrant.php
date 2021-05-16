@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\RegistrantFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,5 +31,10 @@ class Registrant extends Model
     public function registrations()
     {
         return $this->hasMany(Registration::class);
+    }
+
+    public static function newFactory(): RegistrantFactory
+    {
+        return RegistrantFactory::new();
     }
 }

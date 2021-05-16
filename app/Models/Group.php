@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Database\Factories\groupFactory;
+use Database\Factories\GroupFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,8 +31,8 @@ class Group extends Model
         return $this->hasMany(SportSession::class);
     }
 
-    public static function newFactory(): groupFactory
+    public static function newFactory(): GroupFactory
     {
-        return groupFactory::new();
+        return GroupFactory::new();
     }
 }
