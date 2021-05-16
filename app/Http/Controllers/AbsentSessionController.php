@@ -7,6 +7,7 @@ use App\Http\Resources\AbsentSessionResource;
 use App\Models\AbsentSession;
 use App\Models\SportSession;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AbsentSessionController extends Controller
@@ -33,9 +34,12 @@ class AbsentSessionController extends Controller
             ['sport_session_id', '=', $sport_session_id]
         ])->firstOrFail();
 
-        $absent_session = $this->ValidateAbsentSession($absent_session, $request);
+        $absent_session->delete();
 
-        return new AbsentSessionResource($absent_session);
+        return [
+            'status' => 200,
+            'message' => 'session deleted'
+            ];
     }
 
     private function ValidateAbsentSession(AbsentSession $absent_session, Request $request)
