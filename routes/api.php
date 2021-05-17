@@ -52,7 +52,7 @@ Route::post('/registrations', [RegistrationController::class, 'store'])->middlew
 Route::put('/registrants/{registrant_id}/registrations/{registration_id}', [RegistrationController::class, 'update'])->middleware('auth:api');
 
 //groups
-Route::get('/groups/{group_id}', [GroupController::class, 'show'])->middleware('auth:api');
+Route::get('/group/{group_id}', [GroupController::class, 'show'])->middleware('auth:api');
 Route::get('/groups/{club_id}', [GroupController::class, 'index'])->middleware('auth:api');
 Route::post('/groups', [GroupController::class, 'store'])->middleware('auth:api');
 Route::put('/groups/{group_name}', [GroupController::class, 'update'])->middleware('auth:api');
