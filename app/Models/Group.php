@@ -16,6 +16,10 @@ class Group extends Model
         'max_members',
     ];
 
+    protected $casts = [
+        'time' => 'datetime:Y/m/d - H\ui'
+    ];
+
     protected $appends = ['free_spaces'];
 
     public function getFreeSpacesAttribute()

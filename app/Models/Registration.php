@@ -12,7 +12,6 @@ class Registration extends Model
 
     protected $guarded = [];
 
-
     public function registrant()
     {
         return $this->belongsTo(Registrant::class);
