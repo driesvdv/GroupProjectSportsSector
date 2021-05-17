@@ -14,4 +14,7 @@ yarn-error.log
 .idea
 php.xml
 composer.lock
+
+.idea/
+
 .rnd
