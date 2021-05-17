@@ -13,6 +13,8 @@ class Sportclub extends Model
         'name'
     ];
 
+    protected $with = ['sport'];
+    
     public function admins(){
         return $this->hasMany(User::class);
     }

@@ -9,14 +9,18 @@ use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
-    public function show($club_id)
+    public function show($group_id)
     {
-        return Sportclub::find($club_id)->groups;
+        $group = Group::where([
+            ['id', '=', $group_id]
+        ])->with('sportclub')->firstOrFail();
+
+        return new GroupResource($group);
     }
 
-    public function index()
+    public function index($club_id)
     {
-        return GroupResource::collection(Group::all());
+        return Sportclub::find($club_id)->groups;
     }
 
     public function store(Request $request)
