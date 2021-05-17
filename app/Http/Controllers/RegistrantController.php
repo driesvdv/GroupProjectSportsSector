@@ -55,6 +55,6 @@ class RegistrantController extends Controller
      */
     public function store(StoreRegistrantRequest $request)
     {
-        return new RegistrationResource(auth()->user()->registrants()->create($request->validated()));
+        return new RegistrantResource(auth()->user()->registrants()->create($request->validated()));
     }
 }

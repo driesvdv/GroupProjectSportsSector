@@ -27,7 +27,6 @@ class StoreRegistrantRequest extends FormRequest
             'first_name' => 'required',
             'last_name' => 'required',
             'birth_date' => 'required|date',
-            'max_registrations' => 'required'
         ];
     }
 }
