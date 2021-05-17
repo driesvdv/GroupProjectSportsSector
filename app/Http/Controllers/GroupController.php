@@ -12,14 +12,6 @@ class GroupController extends Controller
     public function show($club_id)
     {
         return Sportclub::find($club_id)->groups;
-
-        //$group = Group::where(['name', '=', $group_name]);
-//        $group = Group::where([
-//            ['name', '=', $group_name]
-//        ])->withCount('registrations')
-//            ->firstOrFail();
-
-        //return new GroupResource($group);
     }
 
     public function index()

@@ -26,21 +26,12 @@ class RegistrationAdded implements ShouldBroadcastNow
     public Group $group;
 
     /**
-     * The amount of registrations left
-     *
-     * @var int
-     */
-    public int $amount;
-
-    /**
      * Create a new event instance.
      *
      * @param \App\Models\Registration $registration
      */
     public function __construct(Registration $registration)
     {
-        $this->amount = $registration->group->registrations()->count();
-
         $this->group = $registration->group;
     }
 
