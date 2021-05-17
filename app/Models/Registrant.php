@@ -13,7 +13,7 @@ class Registrant extends Model
     protected $table = 'registrants';
 
     protected $casts = [
-        'birth_date' => 'datetime:Y-m-d',
+        'birth_date' => 'datetime:Y/m/d',
     ];
 
     protected $fillable = [

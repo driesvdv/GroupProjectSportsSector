@@ -22,8 +22,6 @@ class RegistrationController extends Controller
      */
     public function index($registrant_id)
     {
-        Registration::where('registrant_id', $registrant_id)->get();
-
         $registrations = Registration::where([
             ['registrant_id', '=', $registrant_id]
         ])->get();

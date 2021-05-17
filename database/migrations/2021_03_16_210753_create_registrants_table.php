@@ -19,7 +19,7 @@ class CreateRegistrantsTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->date('birth_date');
-            $table->integer('max_registrations');
+            $table->integer('max_registrations')->nullable();
             $table->timestamps();
         });
     }
