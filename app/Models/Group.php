@@ -16,6 +16,13 @@ class Group extends Model
         'max_members',
     ];
 
+    protected $appends = ['free_spaces'];
+
+    public function getFreeSpacesAttribute()
+    {
+        return $this->max_members - $this->registrations()->count();
+    }
+
     public function registrations()
     {
         return $this->hasMany(Registration::class);

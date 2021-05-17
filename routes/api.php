@@ -48,7 +48,7 @@ Route::put('/registrants/{registrant_id}', [RegistrantController::class, 'update
 //registrations
 Route::get('/registrants/{registrant_id}/registrations/{registration_id}', [RegistrationController::class, 'show'])->middleware('auth:api');
 Route::get('/registrants/{registrant_id}/registrations', [RegistrationController::class, 'index'])->middleware('auth:api');
-Route::post('/registrants/{registrant_id}/registrations', [RegistrationController::class, 'store'])->middleware('auth:api');
+Route::post('/registrations', [RegistrationController::class, 'store'])->middleware('auth:api');
 Route::put('/registrants/{registrant_id}/registrations/{registration_id}', [RegistrationController::class, 'update'])->middleware('auth:api');
 
 //groups
