@@ -2,12 +2,19 @@
 
 namespace App\Models;
 
+use Database\Factories\RegistrantFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Registrant extends Model
 {
     use HasFactory;
+
+    protected $table = 'registrants';
+
+    protected $casts = [
+        'birth_date' => 'datetime:Y-m-d',
+    ];
 
     protected $fillable = [
         'first_name',
@@ -16,11 +23,18 @@ class Registrant extends Model
         'max_registrations'
     ];
 
-    public function user(){
-        $this->belongsTo(User::class);
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
-    public function registrations(){
-        $this->hasMany(Registration::class);
+    public function registrations()
+    {
+        return $this->hasMany(Registration::class);
+    }
+
+    public static function newFactory(): RegistrantFactory
+    {
+        return RegistrantFactory::new();
     }
 }

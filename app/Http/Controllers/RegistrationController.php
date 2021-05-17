@@ -14,6 +14,23 @@ use Illuminate\Support\Facades\Auth;
 
 class RegistrationController extends Controller
 {
+    /**
+     * Returns all registrations
+     *
+     * @param $registrant_id
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function index($registrant_id)
+    {
+        Registration::where('registrant_id', $registrant_id)->get();
+
+        $registrations = Registration::where([
+            ['registrant_id', '=', $registrant_id]
+        ])->get();
+
+        return RegistrationResource::collection($registrations);
+    }
+
     public function show($registrant_id, $registration_id){
         $registration = Registration::where([
             ['id', '=', $registration_id],
@@ -22,23 +39,6 @@ class RegistrationController extends Controller
 
         return new RegistrationResource($registration);
     }
-
-
-    /**
-     * Returns all registrations
-     *
-     * @param $registrant_id
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
-     */
-    public function index($registrant_id): AnonymousResourceCollection
-    {
-        $registrations = Registration::where([
-            ['registrant_id', '=', $registrant_id]
-        ])->get();
-
-        return RegistrationResource::collection($registrations);
-    }
-
 
     /**
      * Stores the registration
@@ -50,7 +50,7 @@ class RegistrationController extends Controller
     {
         $registration = $this->ValidateRegistration($request, new Registration());
 
-        RegistrationAdded::dispatch($registration);
+        Broadcast(new RegistrationAdded($registration))->toOthers();
 
         return new RegistrationResource($registration);
     }
@@ -71,12 +71,10 @@ class RegistrationController extends Controller
         $data = $request->validate([
             'group_id' => 'required',
             'registrant_id' => 'required',
-            'has_paid' => 'required',
         ]);
 
         $registration->group_id = $data['group_id'];
         $registration->registrant_id = $data['registrant_id'];
-        $registration->has_paid = $data['has_paid'];
 
         $registration->save();
 

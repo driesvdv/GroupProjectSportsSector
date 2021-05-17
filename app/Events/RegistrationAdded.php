@@ -28,11 +28,11 @@ class RegistrationAdded implements ShouldBroadcastNow
     /**
      * Create a new event instance.
      *
-     * @param \App\Models\Group $group
+     * @param \App\Models\Registration $registration
      */
     public function __construct(Registration $registration)
     {
-        $this->group = Group::where('registration_id', $registration)->withcount('registrations')->first();
+        $this->group = $registration->group;
     }
 
     /**
@@ -42,6 +42,6 @@ class RegistrationAdded implements ShouldBroadcastNow
      */
     public function broadcastOn(): Channel
     {
-        return new Channel('groups.' . $this->group->id);
+        return new Channel('groups');
     }
 }

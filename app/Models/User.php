@@ -2,14 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
+
+    /**
+     *
+     *
+     * @var string
+     */
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -41,11 +50,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function sportclub(){
-        $this->belongsTo(Sportclub::class);
+
+    /**
+     * Returns the sportclub this owner belongs to (only for admin purposes)
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function sportclub(): BelongsTo
+    {
+        return $this->belongsTo(Sportclub::class);
     }
 
-    public function registrants(){
-        $this->hasMany(Registrant::class);
+    /**
+     * Returns all registrants
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function registrants(): HasMany
+    {
+        return $this->hasMany(Registrant::class);
     }
 }

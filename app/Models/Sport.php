@@ -14,6 +14,6 @@ class Sport extends Model
     ];
 
     public function sportclubs(){
-        $this->hasMany(Sportclub::class);
+        return $this->hasMany(Sportclub::class);
     }
 }

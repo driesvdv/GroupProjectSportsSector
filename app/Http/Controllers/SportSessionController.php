@@ -2,31 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Resources\SportSessionResource;
-use App\Models\Registrant;
+use App\Models\AbsentSession;
+use App\Models\Group;
 use App\Models\SportSession;
-use http\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class SportSessionController extends Controller
 {
-    public function show($session_id){
-        $sport_session = SportSession::where([
-            ['id', '=', $session_id]
-        ])->firstOrFail();
+    public function show($session_id, $registration_id = 61)
+    {
+        $sessions = Group::find($session_id)
+            ->sportSessions()
+            ->limit(10)
+            ->get();
 
-        return new SportSessionResource($sport_session);
+        return new SportSessionResource($sessions);
     }
 
-    public function store(Request $request){
+    public function isAbsent($session_id, Request $request)
+    {
+        return !AbsentSession::where('registration_id', $request->registration_id)
+            ->where('sport_session_id', $session_id)
+            ->get()->isempty();
+    }
+
+    public function store(Request $request)
+    {
         $sport_session = $this->ValidateSportSession($request, new SportSession());
 
         return new SportSessionResource($sport_session);
     }
 
-    public function update(Request $request, $session_id){
+    public function update(Request $request, $session_id)
+    {
         $sport_session = SportSession::where([
             ['id', '=', $session_id]
         ])->firstOrFail();
