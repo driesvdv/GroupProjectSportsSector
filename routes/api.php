@@ -58,7 +58,7 @@ Route::post('/groups', [GroupController::class, 'store'])->middleware('auth:api'
 Route::put('/groups/{group_name}', [GroupController::class, 'update'])->middleware('auth:api');
 
 //sportsessions
-Route::get('/sportsessions/{session_id}', [SportSessionController::class, 'show'])->middleware('auth:api');
+Route::get('/sportsessions/{group_id}', [SportSessionController::class, 'show'])->middleware('auth:api');
 Route::post('/sportsessions', [SportSessionController::class, 'store'])->middleware('auth:api');
 Route::put('/sportsessions/{session_id}', [SportSessionController::class, 'update'])->middleware('auth:api');
 
