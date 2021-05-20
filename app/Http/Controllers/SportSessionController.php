@@ -11,10 +11,17 @@ use Illuminate\Support\Facades\Auth;
 
 class SportSessionController extends Controller
 {
-    public function show($session_id, $registration_id = 61)
+    /**
+     * Returns the last 10 sessions
+     *
+     * @param int $group_id The group id
+     * @return \App\Http\Resources\SportSessionResource
+     */
+    public function show(int $group_id): SportSessionResource
     {
-        $sessions = Group::find($session_id)
+        $sessions = Group::find($group_id)
             ->sportSessions()
+            ->orderby('start_time', 'desc')
             ->limit(6)
             ->get();
 
