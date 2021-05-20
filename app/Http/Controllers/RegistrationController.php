@@ -48,7 +48,7 @@ class RegistrationController extends Controller
     {
         $registration = $this->ValidateRegistration($request, new Registration());
 
-        Broadcast(new RegistrationAdded($registration))->toOthers();
+        RegistrationAdded::dispatch($registration);
 
         return new RegistrationResource($registration);
     }

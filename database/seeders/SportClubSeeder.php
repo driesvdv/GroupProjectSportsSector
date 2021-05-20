@@ -28,7 +28,7 @@ class SportClubSeeder extends Seeder
             Group::factory()
                 ->count(10)
                 ->for($sportClub)
-                ->has(SportSession::factory()->count(2))
+                ->has(SportSession::factory()->count(6))
                 ->create();
         }
     }
