@@ -29,9 +29,9 @@ class RegistrationController extends Controller
         return RegistrationResource::collection($registrations);
     }
 
-    public function show($registrant_id, $registration_id){
+    public function show($registrant_id, $group_id){
         $registration = Registration::where([
-            ['id', '=', $registration_id],
+            ['group_id', '=', $group_id],
             ['registrant_id', '=', $registrant_id]
         ])->firstOrFail();
 
