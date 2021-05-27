@@ -63,7 +63,7 @@ Route::post('/sportsessions', [SportSessionController::class, 'store'])->middlew
 Route::put('/sportsessions/{session_id}', [SportSessionController::class, 'update'])->middleware('auth:api');
 
 //is absent
-Route::get('/sportsessions/{session_id}/isabsent', [SportSessionController::class, 'isAbsent']);
+Route::get('/sportsessions/{session_id}/registrations/{registration_id}/isabsent', [SportSessionController::class, 'isAbsent']);
 
 //absentsessions
 Route::get('/sportsessions/{session_id}/absentsessions', [AbsentSessionController::class, 'index'])->middleware('auth:api');
