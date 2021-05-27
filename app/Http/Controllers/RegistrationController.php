@@ -82,12 +82,9 @@ class RegistrationController extends Controller
     }
 
     private function hasRegistration(Request $request){
-        $registration = Registration::where([
+        return Registration::where([
             ['group_id', '=', $request->input('group_id')],
             ['registrant_id', '=', $request->input('registrant_id')]
         ])->first();
-
-        if (isEmpty($registration)) return true;
-        return false;
     }
 }
