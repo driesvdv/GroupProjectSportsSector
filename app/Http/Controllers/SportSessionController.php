@@ -24,7 +24,7 @@ class SportSessionController extends Controller
             ->sportSessions()
             ->whereDate('start_time', '>', Carbon::now())
             ->orderby('start_time', 'desc')
-            ->limit(10)
+            ->limit(3)
             ->get();
 
         return new SportSessionResource($sessions);
