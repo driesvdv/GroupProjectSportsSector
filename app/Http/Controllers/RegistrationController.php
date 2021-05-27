@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
+use function PHPUnit\Framework\isEmpty;
 
 class RegistrationController extends Controller
 {
@@ -29,9 +30,9 @@ class RegistrationController extends Controller
         return RegistrationResource::collection($registrations);
     }
 
-    public function show($registrant_id, $registration_id){
+    public function show($registrant_id, $group_id){
         $registration = Registration::where([
-            ['id', '=', $registration_id],
+            ['group_id', '=', $group_id],
             ['registrant_id', '=', $registrant_id]
         ])->firstOrFail();
 
@@ -42,10 +43,11 @@ class RegistrationController extends Controller
      * Stores the registration
      *
      * @param \Illuminate\Http\Request $request
-     * @return \App\Http\Resources\RegistrationResource
      */
-    public function store(Request $request): RegistrationResource
+    public function store(Request $request)
     {
+        if ($this->hasRegistration($request)) return response()->json(['message'=> 'Lid is al ingeschreven in deze groep!'], 400);
+
         $registration = $this->ValidateRegistration($request, new Registration());
 
         Broadcast(new RegistrationAdded($registration))->toOthers();
@@ -77,5 +79,12 @@ class RegistrationController extends Controller
         $registration->save();
 
         return $registration;
+    }
+
+    private function hasRegistration(Request $request){
+        return Registration::where([
+            ['group_id', '=', $request->input('group_id')],
+            ['registrant_id', '=', $request->input('registrant_id')]
+        ])->first();
     }
 }

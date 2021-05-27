@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Auth;
 
 class SportclubController extends Controller
 {
-    public function show($sportclub_name){
-        $sportclub = Sportclub::where('name', $sportclub_name)->firstOrFail();
+    public function show($sportclub_id){
+        $sportclub = Sportclub::where('id', $sportclub_id)->firstOrFail();
 
         return new SportclubResource($sportclub);
     }

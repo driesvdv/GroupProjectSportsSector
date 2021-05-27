@@ -30,11 +30,11 @@ class SportSessionController extends Controller
         return new SportSessionResource($sessions);
     }
 
-    public function isAbsent($session_id, Request $request)
+    public function isAbsent($session_id, $registration_id, Request $request)
     {
-        return !AbsentSession::where('registration_id', $request->registration_id)
+        return AbsentSession::where('registration_id', $registration_id)
             ->where('sport_session_id', $session_id)
-            ->get()->isempty();
+            ->get()->isempty() ? "false" : "true";
     }
 
     public function store(Request $request)

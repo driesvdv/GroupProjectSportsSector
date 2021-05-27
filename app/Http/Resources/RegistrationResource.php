@@ -21,6 +21,7 @@ class RegistrationResource extends JsonResource
             'registrant_id' => $this->registrant_id,
             'club' => $this->group->sportClub,
             'group' => $this->group,
+            'created_at' => $this->created_at
         ];
     }
 }

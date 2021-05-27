@@ -17,7 +17,7 @@ class RegistrantSeeder extends Seeder
     {
         Registrant::factory()
             ->has(Registration::factory(3)->count(3))
-            ->count(10)
+            ->count(3)
             ->create();
     }
 }
