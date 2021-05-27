@@ -38,9 +38,9 @@ return [
             'options' => [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
                 'useTLS' => true,
-                'host' => 'localhost',
-                'port' => 6001,
-                'scheme' => 'http',
+                'host' => 'sockets.sportplus.vandevelde.studio',
+                'port' => 443,
+                'scheme' => 'https',
             ],
         ],
 
