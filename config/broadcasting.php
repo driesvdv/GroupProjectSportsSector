@@ -40,8 +40,7 @@ return [
                 'useTLS' => true,
                 'host' => 'localhost',
                 'port' => 6001,
-                'scheme' => 'https',
-
+                'scheme' => 'http',
             ],
         ],
 
