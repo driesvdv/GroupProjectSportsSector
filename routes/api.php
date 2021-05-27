@@ -69,4 +69,4 @@ Route::get('/sportsessions/{session_id}/registrations/{registration_id}/isabsent
 Route::get('/sportsessions/{session_id}/absentsessions', [AbsentSessionController::class, 'index'])->middleware('auth:api');
 Route::get('/sportsessions/{session_id}/absentsessions/{absent_id}', [AbsentSessionController::class, 'show'])->middleware('auth:api');
 Route::post('/sportsessions/{session_id}/absentsessions', [AbsentSessionController::class, 'store'])->middleware('auth:api');
-Route::delete('/sportsessions/{sport_session_id}/absentsessions/{registrant_id}', [AbsentSessionController::class, 'delete'])->middleware('auth:api');
+Route::delete('/sportsessions/{sport_session_id}/absentsessions/{registration_id}', [AbsentSessionController::class, 'delete'])->middleware('auth:api');
