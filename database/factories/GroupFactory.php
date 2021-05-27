@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\group;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class groupFactory extends Factory
@@ -23,7 +24,7 @@ class groupFactory extends Factory
     {
         return [
             'name' => $this->faker->firstName,
-            'time' => $this->faker->dateTimeBetween('-2 years'),
+            'time' => Carbon::now(),
             'max_members' => 10,
         ];
     }

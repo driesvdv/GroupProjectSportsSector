@@ -22,7 +22,7 @@ class sportSessionFactory extends Factory
      */
     public function definition()
     {
-        $startTime = $this->faker->dateTimeInInterval('-1 years', '+7 days');
+        $startTime = $this->faker->dateTimeInInterval('now', '+4 months');
 
         return [
             'start_time' => $startTime,

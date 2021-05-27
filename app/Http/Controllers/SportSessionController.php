@@ -6,6 +6,7 @@ use App\Http\Resources\SportSessionResource;
 use App\Models\AbsentSession;
 use App\Models\Group;
 use App\Models\SportSession;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,8 +22,9 @@ class SportSessionController extends Controller
     {
         $sessions = Group::find($group_id)
             ->sportSessions()
+            ->whereDate('start_time', '>', Carbon::now())
             ->orderby('start_time', 'desc')
-            ->limit(6)
+            ->limit(3)
             ->get();
 
         return new SportSessionResource($sessions);

@@ -37,11 +37,10 @@ return [
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
-                'useTLS' => true,
-                'host' => 'localhost',
+                'encrypted' => true,
+                'host' => 'sockets.sportplus.vandevelde.studio',
                 'port' => 6001,
                 'scheme' => 'http',
-
             ],
         ],
 

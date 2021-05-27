@@ -31,8 +31,8 @@ class UserSeeder extends Seeder
 
             Registrant::factory()
                 ->for($user)
-                ->has(Registration::factory()->count(3))
-                ->count(10)
+                ->has(Registration::factory()->count(2))
+                ->count(2)
                 ->create();
         }
     }
